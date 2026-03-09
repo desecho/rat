@@ -14,7 +14,7 @@ A desktop pet rat for macOS. It lives on your screen as a tiny pixel-art rat tha
 - Energy and hunger system that influences behavior
 - Menu bar icon with Feed / Sleep controls
 - Right-click the rat to see stats
-- All sprites are procedurally generated — no image assets needed
+- Uses a bundled reference sprite to match the rat artwork exactly
 
 ## Build & Run
 

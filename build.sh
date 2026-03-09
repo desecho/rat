@@ -7,6 +7,7 @@ BUNDLE="${APP_NAME}.app"
 mkdir -p "${BUNDLE}/Contents/MacOS"
 mkdir -p "${BUNDLE}/Contents/Resources"
 cp Rat/Info.plist "${BUNDLE}/Contents/"
+cp -R Rat/Resources/. "${BUNDLE}/Contents/Resources/"
 
 swiftc \
     -o "${BUNDLE}/Contents/MacOS/${APP_NAME}" \

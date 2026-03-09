@@ -8,12 +8,30 @@ class SpriteSheet {
     }
 
     static func generate(name: String, frameCount: Int, size: Int = 32) -> SpriteSheet {
+        if let referenceFrame = ReferenceSprite.frame {
+            return SpriteSheet(frames: Array(repeating: referenceFrame, count: frameCount))
+        }
+
         var frames: [CGImage] = []
         for i in 0..<frameCount {
             let image = SpriteGenerator.generateFrame(name: name, frameIndex: i, size: size)
             frames.append(image)
         }
         return SpriteSheet(frames: frames)
+    }
+}
+
+private enum ReferenceSprite {
+    static let frame: CGImage? = load()
+
+    private static func load() -> CGImage? {
+        guard let url = Bundle.main.url(forResource: "rat-reference", withExtension: "png"),
+              let image = NSImage(contentsOf: url) else {
+            return nil
+        }
+
+        var rect = CGRect(origin: .zero, size: image.size)
+        return image.cgImage(forProposedRect: &rect, context: nil, hints: nil)
     }
 }
 
