@@ -4,14 +4,16 @@ class AnimationSequence {
     let name: String
     let spriteSheet: SpriteSheet
     let looping: Bool
+    private let frameDuration: TimeInterval
     private(set) var currentFrameIndex: Int = 0
     private var elapsed: TimeInterval = 0
     var isFinished: Bool = false
 
-    init(name: String, spriteSheet: SpriteSheet, looping: Bool = true) {
+    init(name: String, spriteSheet: SpriteSheet, looping: Bool = true, frameDuration: TimeInterval = PetConfig.frameDuration) {
         self.name = name
         self.spriteSheet = spriteSheet
         self.looping = looping
+        self.frameDuration = frameDuration
     }
 
     func reset() {
@@ -22,8 +24,8 @@ class AnimationSequence {
 
     func update(dt: TimeInterval) {
         elapsed += dt
-        if elapsed >= PetConfig.frameDuration {
-            elapsed -= PetConfig.frameDuration
+        if elapsed >= frameDuration {
+            elapsed -= frameDuration
             currentFrameIndex += 1
             if currentFrameIndex >= spriteSheet.frames.count {
                 if looping {

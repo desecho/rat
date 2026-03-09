@@ -8,8 +8,8 @@ class SpriteSheet {
     }
 
     static func generate(name: String, frameCount: Int, size: Int = 32) -> SpriteSheet {
-        if let referenceFrame = ReferenceSprite.frame {
-            return SpriteSheet(frames: Array(repeating: referenceFrame, count: frameCount))
+        if let referenceFrames = ReferenceSprite.generate(name: name, frameCount: frameCount) {
+            return SpriteSheet(frames: referenceFrames)
         }
 
         var frames: [CGImage] = []
@@ -22,7 +22,16 @@ class SpriteSheet {
 }
 
 private enum ReferenceSprite {
-    static let frame: CGImage? = load()
+    private static let baseFrame: CGImage? = load()
+
+    static func generate(name: String, frameCount: Int) -> [CGImage]? {
+        guard let baseFrame else { return nil }
+
+        let yOffsets = offsets(for: name, frameCount: frameCount)
+        let frames = yOffsets.compactMap { render(baseFrame: baseFrame, yOffset: $0) }
+        guard frames.count == frameCount else { return nil }
+        return frames
+    }
 
     private static func load() -> CGImage? {
         guard let url = Bundle.main.url(forResource: "rat-reference", withExtension: "png"),
@@ -32,6 +41,63 @@ private enum ReferenceSprite {
 
         var rect = CGRect(origin: .zero, size: image.size)
         return image.cgImage(forProposedRect: &rect, context: nil, hints: nil)
+    }
+
+    private static func offsets(for name: String, frameCount: Int) -> [Int] {
+        let pattern: [Int]
+
+        switch name {
+        case "walk":
+            pattern = [0, 2, 0, 1]
+        case "climb":
+            pattern = [0, 1, 0, 1]
+        case "sleep":
+            pattern = [1, 0, 1]
+        case "eat":
+            pattern = [0, 1, 0, 1]
+        case "dragged":
+            pattern = [0, 1]
+        case "fall":
+            pattern = [0, 2]
+        default:
+            pattern = [0, 1, 0, 0]
+        }
+
+        if pattern.count == frameCount {
+            return pattern
+        }
+
+        return (0..<frameCount).map { pattern[$0 % pattern.count] }
+    }
+
+    private static func render(baseFrame: CGImage, yOffset: Int) -> CGImage? {
+        let width = baseFrame.width
+        let height = baseFrame.height
+
+        guard let ctx = CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else {
+            return nil
+        }
+
+        ctx.clear(CGRect(x: 0, y: 0, width: width, height: height))
+        ctx.interpolationQuality = .none
+        ctx.draw(
+            baseFrame,
+            in: CGRect(
+                x: 0,
+                y: -CGFloat(yOffset),
+                width: CGFloat(width),
+                height: CGFloat(height)
+            )
+        )
+        return ctx.makeImage()
     }
 }
 

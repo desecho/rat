@@ -9,18 +9,23 @@ class AnimationController {
     }
 
     private func registerAll() {
-        register(name: "idle", frameCount: 4)
-        register(name: "walk", frameCount: 4)
-        register(name: "sleep", frameCount: 3)
-        register(name: "eat", frameCount: 4)
-        register(name: "climb", frameCount: 4)
-        register(name: "dragged", frameCount: 2)
-        register(name: "fall", frameCount: 2)
+        register(name: "idle", frameCount: 4, fps: 5)
+        register(name: "walk", frameCount: 4, fps: 10)
+        register(name: "sleep", frameCount: 3, fps: 2)
+        register(name: "eat", frameCount: 4, fps: 8)
+        register(name: "climb", frameCount: 4, fps: 8)
+        register(name: "dragged", frameCount: 2, fps: 4)
+        register(name: "fall", frameCount: 2, fps: 6)
     }
 
-    private func register(name: String, frameCount: Int, looping: Bool = true) {
+    private func register(name: String, frameCount: Int, fps: Double, looping: Bool = true) {
         let sheet = SpriteSheet.generate(name: name, frameCount: frameCount)
-        sequences[name] = AnimationSequence(name: name, spriteSheet: sheet, looping: looping)
+        sequences[name] = AnimationSequence(
+            name: name,
+            spriteSheet: sheet,
+            looping: looping,
+            frameDuration: 1.0 / fps
+        )
     }
 
     func play(_ name: String) {
