@@ -34,8 +34,8 @@ class WalkingState: PetState {
         ratPet.position.y = screenBounds.groundY
 
         // Check screen edges
-        if ratPet.position.x <= screenBounds.minX + PetConfig.renderSize / 2 {
-            ratPet.position.x = screenBounds.minX + PetConfig.renderSize / 2
+        if ratPet.position.x <= screenBounds.minX + PetConfig.renderWidth / 2 {
+            ratPet.position.x = screenBounds.minX + PetConfig.renderWidth / 2
             // Chance to climb
             let roll = Double.random(in: 0...1)
             if roll < PetConfig.walkToClimbWeight {
@@ -45,8 +45,8 @@ class WalkingState: PetState {
             // Turn around
             ratPet.facingLeft = false
             ratPet.velocity.x = PetConfig.walkSpeed
-        } else if ratPet.position.x >= screenBounds.maxX - PetConfig.renderSize / 2 {
-            ratPet.position.x = screenBounds.maxX - PetConfig.renderSize / 2
+        } else if ratPet.position.x >= screenBounds.maxX - PetConfig.renderWidth / 2 {
+            ratPet.position.x = screenBounds.maxX - PetConfig.renderWidth / 2
             let roll = Double.random(in: 0...1)
             if roll < PetConfig.walkToClimbWeight {
                 ratPet.climbingSide = .right

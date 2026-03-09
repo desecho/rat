@@ -56,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             guard let self = self else { return }
             // Convert to screen coordinates
             let screenPoint = NSEvent.mouseLocation
-            self.ratPet.position = CGPoint(x: screenPoint.x, y: screenPoint.y - PetConfig.renderSize / 2)
+            self.ratPet.position = CGPoint(x: screenPoint.x, y: screenPoint.y - PetConfig.renderHeight / 2)
         }
         ratView.onRightMouseDown = { [weak self] event in
             guard let self = self else { return }

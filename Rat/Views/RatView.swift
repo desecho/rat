@@ -12,11 +12,12 @@ class RatView: NSView {
 
     init(ratPet: RatPet) {
         self.ratPet = ratPet
-        let size = PetConfig.renderSize
-        super.init(frame: CGRect(x: 0, y: 0, width: size, height: size))
+        let w = PetConfig.renderWidth
+        let h = PetConfig.renderHeight
+        super.init(frame: CGRect(x: 0, y: 0, width: w, height: h))
         wantsLayer = true
 
-        spriteLayer.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        spriteLayer.frame = CGRect(x: 0, y: 0, width: w, height: h)
         spriteLayer.magnificationFilter = .nearest
         spriteLayer.contentsGravity = .resizeAspect
         spriteLayer.contentsScale = NSScreen.main?.backingScaleFactor ?? 2.0
@@ -34,7 +35,8 @@ class RatView: NSView {
             spriteLayer.contents = frame
         }
 
-        let size = PetConfig.renderSize
+        let w = PetConfig.renderWidth
+        let h = PetConfig.renderHeight
 
         var transform = CATransform3DIdentity
         if ratPet.isClimbing {
@@ -48,7 +50,7 @@ class RatView: NSView {
         }
 
         spriteLayer.transform = transform
-        spriteLayer.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        spriteLayer.frame = CGRect(x: 0, y: 0, width: w, height: h)
     }
 
     override func mouseDown(with event: NSEvent) {

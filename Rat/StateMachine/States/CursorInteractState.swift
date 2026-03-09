@@ -25,7 +25,7 @@ class CursorInteractState: PetState {
 
         switch behavior {
         case .follow:
-            if distance > PetConfig.renderSize {
+            if distance > PetConfig.renderWidth {
                 let dir: CGFloat = dx > 0 ? 1 : -1
                 ratPet.position.x += dir * PetConfig.cursorFollowSpeed * CGFloat(dt)
                 ratPet.facingLeft = dir < 0
@@ -39,8 +39,8 @@ class CursorInteractState: PetState {
         }
 
         // Keep in bounds
-        ratPet.position.x = max(screenBounds.minX + PetConfig.renderSize / 2,
-                                min(screenBounds.maxX - PetConfig.renderSize / 2, ratPet.position.x))
+        ratPet.position.x = max(screenBounds.minX + PetConfig.renderWidth / 2,
+                                min(screenBounds.maxX - PetConfig.renderWidth / 2, ratPet.position.x))
         ratPet.position.y = screenBounds.groundY
 
         // Return to normal after cursor moves away

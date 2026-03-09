@@ -25,7 +25,7 @@ class CursorBehavior {
 
         let ratCenter = CGPoint(
             x: ratPet.position.x,
-            y: ratPet.position.y + PetConfig.renderSize / 2
+            y: ratPet.position.y + PetConfig.renderHeight / 2
         )
         let dx = cursorPosition.x - ratCenter.x
         let dy = cursorPosition.y - ratCenter.y

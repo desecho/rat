@@ -12,9 +12,9 @@ class ClimbingState: PetState {
         ratPet.velocity = CGPoint(x: 0, y: PetConfig.climbSpeed)
 
         if ratPet.climbingSide == .left {
-            ratPet.position.x = screenBounds.minX + PetConfig.renderSize / 2
+            ratPet.position.x = screenBounds.minX + PetConfig.renderWidth / 2
         } else {
-            ratPet.position.x = screenBounds.maxX - PetConfig.renderSize / 2
+            ratPet.position.x = screenBounds.maxX - PetConfig.renderWidth / 2
         }
         animationController.play("climb")
     }
@@ -30,7 +30,7 @@ class ClimbingState: PetState {
 
         // Stop at max climb height or top of screen
         if climbedHeight >= PetConfig.climbMaxHeight ||
-           ratPet.position.y >= screenBounds.maxY - PetConfig.renderSize {
+           ratPet.position.y >= screenBounds.maxY - PetConfig.renderHeight {
             // Let go and fall
             return .falling
         }
