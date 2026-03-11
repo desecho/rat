@@ -45,12 +45,18 @@ class RatView: NSView {
             } else {
                 transform = CATransform3DMakeRotation(.pi / 2, 0, 0, 1)
             }
-        } else if ratPet.facingLeft {
-            transform = CATransform3DMakeScale(-1, 1, 1)
+            // Swap width/height so the rotated sprite isn't squished
+            self.frame = CGRect(x: 0, y: 0, width: h, height: w)
+            spriteLayer.frame = CGRect(x: 0, y: 0, width: h, height: w)
+        } else {
+            if ratPet.facingLeft {
+                transform = CATransform3DMakeScale(-1, 1, 1)
+            }
+            self.frame = CGRect(x: 0, y: 0, width: w, height: h)
+            spriteLayer.frame = CGRect(x: 0, y: 0, width: w, height: h)
         }
 
         spriteLayer.transform = transform
-        spriteLayer.frame = CGRect(x: 0, y: 0, width: w, height: h)
     }
 
     override func mouseDown(with event: NSEvent) {

@@ -4,8 +4,8 @@ struct PetConfig {
     // Sprite
     static let spriteSize: CGFloat = 32
     static let renderScale: CGFloat = 3
-    static let renderWidth: CGFloat = 192
-    static let renderHeight: CGFloat = 96
+    static let renderWidth: CGFloat = 96
+    static let renderHeight: CGFloat = 48
 
     // Animation
     static let animationFPS: Double = 12

@@ -43,7 +43,7 @@ class AnimationSystem {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         ratView.updateSprite()
-        petWindow.trackPosition(ratPet.position)
+        petWindow.trackPosition(ratPet.position, isClimbing: ratPet.isClimbing)
         CATransaction.commit()
     }
 }

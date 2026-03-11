@@ -26,7 +26,5 @@ class MouseTracker {
     }
 
     private func handleMouseMove() {
-        let screenPoint = NSEvent.mouseLocation
-        cursorBehavior.update(cursorPosition: screenPoint)
     }
 }
