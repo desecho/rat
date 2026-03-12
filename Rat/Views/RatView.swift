@@ -19,7 +19,7 @@ class RatView: NSView {
 
         spriteLayer.frame = CGRect(x: 0, y: 0, width: w, height: h)
         spriteLayer.magnificationFilter = .nearest
-        spriteLayer.contentsGravity = .resizeAspect
+        spriteLayer.contentsGravity = .resize
         spriteLayer.contentsScale = NSScreen.main?.backingScaleFactor ?? 2.0
 
         layer!.addSublayer(spriteLayer)

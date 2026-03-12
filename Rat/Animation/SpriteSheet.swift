@@ -154,7 +154,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "     17 17  1355555551 17 71",
         "      7  7   11555511  7  7",
-    ], topPadding: 12)
+    ], topPadding: 17)
 
     static let idleSniff: [[Int]] = makeRows([
         "                  99   99",
@@ -172,7 +172,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "     17 17  1355555551 17 71",
         "      7  7   11555511  7  7",
-    ], topPadding: 12)
+    ], topPadding: 17)
 
     static let idleEarTwitch: [[Int]] = makeRows([
         "                 99    99",
@@ -190,7 +190,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "     17 17  1355555551 17 71",
         "      7  7   11555511  7  7",
-    ], topPadding: 11)
+    ], topPadding: 17)
 
     // MARK: Walk
 
@@ -212,7 +212,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "     17  7   17 17",
         "      7  7    7 7",
-    ], topPadding: 12)
+    ], topPadding: 17)
 
     static let walkF1: [[Int]] = makeRows([
         "                  99   99",
@@ -230,7 +230,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "      17 17  7 17",
         "       7  7   7  7",
-    ], topPadding: 12)
+    ], topPadding: 17)
 
     static let walkF2: [[Int]] = makeRows([
         "                  99   99",
@@ -248,7 +248,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "     17 17   17 7",
         "      7  7    7  7",
-    ], topPadding: 12)
+    ], topPadding: 17)
 
     static let walkF3: [[Int]] = makeRows([
         "                  99   99",
@@ -266,7 +266,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "      17  7  17 17",
         "       7  7   7  7",
-    ], topPadding: 12)
+    ], topPadding: 17)
 
     // MARK: Sleep
 
@@ -284,7 +284,7 @@ class SpriteGenerator {
         "      713335555553311",
         "       13333333333311",
         "        1111111111111",
-    ], topPadding: 15)
+    ], topPadding: 21)
 
     static let sleepF1: [[Int]] = makeRows([
         "             88",
@@ -300,7 +300,7 @@ class SpriteGenerator {
         "      713335555553311",
         "       13333333333311",
         "        1111111111111",
-    ], topPadding: 14)
+    ], topPadding: 19)
 
     static let sleepF2: [[Int]] = makeRows([
         "            88",
@@ -317,7 +317,7 @@ class SpriteGenerator {
         "      713335555553311",
         "       13333333333311",
         "        1111111111111",
-    ], topPadding: 13)
+    ], topPadding: 18)
 
     // MARK: Eat
 
@@ -339,7 +339,7 @@ class SpriteGenerator {
         "    113333335555555555113333311",
         "     17 17  1355555551 17 71",
         "      7  7   11555511  7  7",
-    ], topPadding: 12)
+    ], topPadding: 17)
 
     static let eatF1: [[Int]] = makeRows([
         "                  99   99",
@@ -355,7 +355,7 @@ class SpriteGenerator {
         "    11333333555555555511333311",
         "     17 17  1355555551 17 71",
         "      7  7   11555511  7  7",
-    ], topPadding: 13)
+    ], topPadding: 19)
 
     static let eatF2: [[Int]] = idleBase
 
@@ -384,7 +384,7 @@ class SpriteGenerator {
         "      7  7    7  7",
         "      7  7    7  7",
         "      7  7    7  7",
-    ], topPadding: 10)
+    ], topPadding: 16)
 
     static let dragF1: [[Int]] = makeRows([
         "                  99   99",
@@ -403,7 +403,7 @@ class SpriteGenerator {
         "     7   7   7   7",
         "      7  7    7  7",
         "     7   7   7   7",
-    ], topPadding: 10)
+    ], topPadding: 16)
 
     // MARK: Fall
 
@@ -424,7 +424,7 @@ class SpriteGenerator {
         "    1133333555555555113333311",
         "   7 17 17   17 17 7",
         "  7   7  7    7  7  7",
-    ], topPadding: 10)
+    ], topPadding: 18)
 
     static let fallF1: [[Int]] = makeRows([
         "                  99   99",
@@ -441,5 +441,5 @@ class SpriteGenerator {
         "    1133333555555555113333311",
         "  7  17 17   17 17  7",
         " 7    7  7    7  7   7",
-    ], topPadding: 10)
+    ], topPadding: 18)
 }

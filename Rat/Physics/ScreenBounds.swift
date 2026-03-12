@@ -13,6 +13,6 @@ class ScreenBounds {
         self.maxX = visible.maxX
         self.minY = visible.minY
         self.maxY = visible.maxY
-        self.groundY = visible.minY  // above the Dock
+        self.groundY = visible.minY - 5  // snug against the Dock
     }
 }
