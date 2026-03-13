@@ -13,7 +13,7 @@ swiftc \
     -o "${BUNDLE}/Contents/MacOS/${APP_NAME}" \
     -framework AppKit \
     -framework QuartzCore \
-    -target x86_64-apple-macos14.0 \
+    -target x86_64-apple-macos13.0 \
     $(find Rat -name "*.swift")
 
 echo "Built ${BUNDLE} (x86_64) successfully."

@@ -2,7 +2,7 @@
 
 A desktop pet rat for macOS. It lives on your screen as a tiny pixel-art rat that walks, sleeps, eats, climbs screen edges, reacts to your cursor, and can be picked up and dropped.
 
-![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue) ![Swift](https://img.shields.io/badge/Swift-5-orange) ![No Xcode Required](https://img.shields.io/badge/Xcode-not%20required-green)
+![macOS 13+](https://img.shields.io/badge/macOS-13%2B-blue) ![Swift](https://img.shields.io/badge/Swift-5-orange) ![No Xcode Required](https://img.shields.io/badge/Xcode-not%20required-green)
 
 ## Features
 
@@ -25,7 +25,7 @@ No Xcode project required. Just run:
 open Rat.app
 ```
 
-Requires Swift and targets `arm64-apple-macos14.0`.
+Requires Swift and targets `arm64-apple-macos13.0`.
 
 ## Usage
 
