@@ -12,9 +12,9 @@ class ClimbingState: PetState {
         ratPet.velocity = CGPoint(x: 0, y: PetConfig.climbSpeed)
 
         if ratPet.climbingSide == .left {
-            ratPet.position.x = screenBounds.minX + PetConfig.renderWidth / 2
+            ratPet.position.x = screenBounds.minX + PetConfig.renderHeight / 2
         } else {
-            ratPet.position.x = screenBounds.maxX - PetConfig.renderWidth / 2
+            ratPet.position.x = screenBounds.maxX - PetConfig.renderHeight / 2
         }
         animationController.play("climb")
     }

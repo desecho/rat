@@ -41,9 +41,10 @@ class RatView: NSView {
         var transform = CATransform3DIdentity
         if ratPet.isClimbing {
             if ratPet.climbingSide == .left {
-                transform = CATransform3DMakeRotation(-.pi / 2, 0, 0, 1)
-            } else {
                 transform = CATransform3DMakeRotation(.pi / 2, 0, 0, 1)
+                transform = CATransform3DConcat(CATransform3DMakeScale(1, -1, 1), transform)
+            } else {
+                transform = CATransform3DMakeRotation(-.pi / 2, 0, 0, 1)
             }
             // Swap width/height so the rotated sprite isn't squished
             self.frame = CGRect(x: 0, y: 0, width: h, height: w)
