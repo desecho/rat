@@ -44,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             petWindow: petWindow
         )
 
-        statusBarController = StatusBarController(ratPet: ratPet, stateMachine: stateMachine)
+        statusBarController = StatusBarController(ratPet: ratPet, stateMachine: stateMachine, screenBounds: screenBounds)
 
         ratView.onMouseDown = { [weak self] event in
             self?.stateMachine.forceTransition(to: .dragged)
@@ -60,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         ratView.onRightMouseDown = { [weak self] event in
             guard let self = self else { return }
-            let menu = ContextMenuBuilder.build(ratPet: self.ratPet, stateMachine: self.stateMachine)
+            let menu = ContextMenuBuilder.build(ratPet: self.ratPet, stateMachine: self.stateMachine, screenBounds: screenBounds)
             NSMenu.popUpContextMenu(menu, with: event, for: self.ratView)
         }
 
