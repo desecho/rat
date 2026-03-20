@@ -15,7 +15,7 @@ class AnimationController {
         register(name: "eat", frameCount: 4, fps: 8)
         registerAlias(name: "climb", source: "walk", fps: 8)
         registerAlias(name: "dragged", source: "idle", fps: 4)
-        registerAlias(name: "fall", source: "idle", fps: 6)
+        register(name: "fall", frameCount: 2, fps: 6)
     }
 
     private func registerAlias(name: String, source: String, fps: Double, looping: Bool = true) {
