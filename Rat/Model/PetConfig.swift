@@ -26,6 +26,7 @@ struct PetConfig {
     static let sleepMinDuration: TimeInterval = 10.0
     static let sleepMaxDuration: TimeInterval = 30.0
     static let eatDuration: TimeInterval = 3.0
+    static let playDuration: TimeInterval = 3.0
     static let climbMaxHeight: CGFloat = 200
 
     // Cursor interaction
@@ -34,18 +35,23 @@ struct PetConfig {
     static let cursorFollowSpeed: CGFloat = 60
     static let cursorFleeSpeed: CGFloat = 80
 
-    // Energy / hunger
+    // Energy / hunger / boredom
     static let maxEnergy: Double = 100
     static let maxHunger: Double = 100
+    static let maxBoredom: Double = 100
     static let energyDecayRate: Double = 0.5    // per second
     static let hungerIncreaseRate: Double = 0.3 // per second
+    static let boredomIncreaseRate: Double = 0.3 // per second
     static let sleepEnergyGain: Double = 2.0    // per second
     static let eatHungerReduction: Double = 30
+    static let playBoredomReduction: Double = 30
+    static let boredomThreshold: Double = 70
 
     // Transition weights
     static let idleToWalkWeight: Double = 0.4
     static let idleToSleepWeight: Double = 0.15
     static let idleToEatWeight: Double = 0.1
+    static let idleToPlayWeight: Double = 0.1
     static let walkToIdleWeight: Double = 0.5
     static let walkToClimbWeight: Double = 0.3
 }

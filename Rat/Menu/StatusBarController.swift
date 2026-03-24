@@ -1,10 +1,13 @@
 import AppKit
 
-class StatusBarController {
+class StatusBarController: NSObject, NSMenuDelegate {
     private var statusItem: NSStatusItem
     private let ratPet: RatPet
     private let stateMachine: StateMachine
     private let screenBounds: ScreenBounds
+    private let menu = NSMenu()
+    private let statsItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+    private let sleepItem = NSMenuItem(title: "Sleep", action: #selector(toggleSleep), keyEquivalent: "s")
 
     init(ratPet: RatPet, stateMachine: StateMachine, screenBounds: ScreenBounds) {
         self.ratPet = ratPet
@@ -12,6 +15,7 @@ class StatusBarController {
         self.screenBounds = screenBounds
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        super.init()
 
         if let button = statusItem.button {
             button.title = "R"
@@ -22,13 +26,20 @@ class StatusBarController {
     }
 
     private func setupMenu() {
-        let menu = NSMenu()
+        menu.delegate = self
+
+        statsItem.isEnabled = false
+        menu.addItem(statsItem)
+        menu.addItem(NSMenuItem.separator())
 
         let feedItem = NSMenuItem(title: "Feed", action: #selector(feedRat), keyEquivalent: "f")
         feedItem.target = self
         menu.addItem(feedItem)
 
-        let sleepItem = NSMenuItem(title: "Sleep / Wake", action: #selector(toggleSleep), keyEquivalent: "s")
+        let playItem = NSMenuItem(title: "Play", action: #selector(playRat), keyEquivalent: "p")
+        playItem.target = self
+        menu.addItem(playItem)
+
         sleepItem.target = self
         menu.addItem(sleepItem)
 
@@ -43,10 +54,24 @@ class StatusBarController {
         menu.addItem(quitItem)
 
         statusItem.menu = menu
+        refreshMenuItems()
+    }
+
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        refreshMenuItems()
+    }
+
+    private func refreshMenuItems() {
+        statsItem.title = "Energy: \(Int(ratPet.energy))% | Hunger: \(Int(ratPet.hunger))% | Boredom: \(Int(ratPet.boredom))%"
+        sleepItem.title = stateMachine.currentStateID == .sleeping ? "Wake Up" : "Sleep"
     }
 
     @objc private func feedRat() {
         stateMachine.forceTransition(to: .eating)
+    }
+
+    @objc private func playRat() {
+        stateMachine.forceTransition(to: .playing)
     }
 
     @objc private func toggleSleep() {

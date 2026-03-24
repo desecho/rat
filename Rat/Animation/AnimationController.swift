@@ -13,6 +13,7 @@ class AnimationController {
         register(name: "walk", frameCount: 4, fps: 10)
         register(name: "sleep", frameCount: 4, fps: 2)
         register(name: "eat", frameCount: 4, fps: 8)
+        register(name: "play", frameCount: 4, fps: 5)
         registerAlias(name: "climb", source: "walk", fps: 8)
         registerAlias(name: "dragged", source: "idle", fps: 4)
         register(name: "fall", frameCount: 2, fps: 6)

@@ -20,13 +20,13 @@ class IdleState: PetState {
         guard elapsed >= duration else { return nil }
 
         // Weighted random transition
-        let roll = Double.random(in: 0...1)
-        var cumulative = 0.0
-
-        // Tired rat prefers sleeping
         let sleepWeight = ratPet.isTired ? 0.4 : PetConfig.idleToSleepWeight
         let eatWeight = ratPet.isHungry ? 0.3 : PetConfig.idleToEatWeight
+        let playWeight = ratPet.isBored ? 0.3 : PetConfig.idleToPlayWeight
         let walkWeight = PetConfig.idleToWalkWeight
+        let totalWeight = walkWeight + sleepWeight + eatWeight + playWeight
+        let roll = Double.random(in: 0..<totalWeight)
+        var cumulative = 0.0
 
         cumulative += walkWeight
         if roll < cumulative { return .walking }
@@ -36,6 +36,9 @@ class IdleState: PetState {
 
         cumulative += eatWeight
         if roll < cumulative { return .eating }
+
+        cumulative += playWeight
+        if roll < cumulative { return .playing }
 
         return .walking
     }

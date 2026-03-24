@@ -18,6 +18,7 @@ class StateMachine {
         let walking = WalkingState()
         let sleeping = SleepingState()
         let eating = EatingState()
+        let playing = PlayingState()
         let climbing = ClimbingState()
         let dragged = DraggedState()
         let falling = FallingState()
@@ -27,6 +28,7 @@ class StateMachine {
         states[.walking] = walking
         states[.sleeping] = sleeping
         states[.eating] = eating
+        states[.playing] = playing
         states[.climbing] = climbing
         states[.dragged] = dragged
         states[.falling] = falling

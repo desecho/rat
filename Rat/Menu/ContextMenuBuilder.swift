@@ -11,6 +11,10 @@ class ContextMenuBuilder {
         MenuActions.shared.screenBounds = screenBounds
         menu.addItem(feedItem)
 
+        let playItem = NSMenuItem(title: "Play", action: #selector(MenuActions.play), keyEquivalent: "")
+        playItem.target = MenuActions.shared
+        menu.addItem(playItem)
+
         let sleepTitle = stateMachine.currentStateID == .sleeping ? "Wake Up" : "Sleep"
         let sleepItem = NSMenuItem(title: sleepTitle, action: #selector(MenuActions.toggleSleep), keyEquivalent: "")
         sleepItem.target = MenuActions.shared
@@ -22,7 +26,7 @@ class ContextMenuBuilder {
 
         menu.addItem(NSMenuItem.separator())
 
-        let statusItem = NSMenuItem(title: "Energy: \(Int(ratPet.energy))% | Hunger: \(Int(ratPet.hunger))%", action: nil, keyEquivalent: "")
+        let statusItem = NSMenuItem(title: "Energy: \(Int(ratPet.energy))% | Hunger: \(Int(ratPet.hunger))% | Boredom: \(Int(ratPet.boredom))%", action: nil, keyEquivalent: "")
         statusItem.isEnabled = false
         menu.addItem(statusItem)
 
@@ -38,6 +42,10 @@ class MenuActions: NSObject {
 
     @objc func feed() {
         stateMachine?.forceTransition(to: .eating)
+    }
+
+    @objc func play() {
+        stateMachine?.forceTransition(to: .playing)
     }
 
     @objc func toggleSleep() {

@@ -5,6 +5,7 @@ enum RatStateID: String, CaseIterable {
     case walking
     case sleeping
     case eating
+    case playing
     case climbing
     case dragged
     case falling
