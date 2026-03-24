@@ -18,7 +18,7 @@ class SpriteSheet {
                     while frames.count < frameCount {
                         frames.append(frames[0])
                     }
-                    return frames
+                    return normalizeFrames(frames)
                 }
                 return nil
             }
@@ -26,10 +26,103 @@ class SpriteSheet {
             guard let cgImage = nsImage.cgImage(forProposedRect: &rect, context: nil, hints: nil) else {
                 return nil
             }
-            guard let flipped = flipHorizontally(cgImage) else { return nil }
-            frames.append(flipped)
+            frames.append(cgImage)
         }
-        return frames
+
+        return normalizeFrames(frames)
+    }
+
+    private static func normalizeFrames(_ frames: [CGImage]) -> [CGImage]? {
+        let rasterizedFrames = frames.compactMap(rasterizeRGBA)
+        guard rasterizedFrames.count == frames.count else { return nil }
+
+        let normalizedFrames: [CGImage]
+        if let bounds = sharedOpaqueBounds(in: rasterizedFrames) {
+            normalizedFrames = rasterizedFrames.compactMap { crop($0, to: bounds) }
+            guard normalizedFrames.count == rasterizedFrames.count else { return nil }
+        } else {
+            normalizedFrames = rasterizedFrames
+        }
+
+        let flippedFrames = normalizedFrames.compactMap(flipHorizontally)
+        return flippedFrames.count == normalizedFrames.count ? flippedFrames : nil
+    }
+
+    private static func sharedOpaqueBounds(in frames: [CGImage]) -> CGRect? {
+        var unionBounds: CGRect?
+
+        for frame in frames {
+            guard let bounds = opaqueBounds(in: frame) else { continue }
+            unionBounds = unionBounds?.union(bounds) ?? bounds
+        }
+
+        guard let unionBounds else { return nil }
+        return unionBounds.integral
+    }
+
+    private static func opaqueBounds(in image: CGImage) -> CGRect? {
+        guard let data = image.dataProvider?.data,
+              let bytes = CFDataGetBytePtr(data) else {
+            return nil
+        }
+
+        let width = image.width
+        let height = image.height
+        let bytesPerRow = image.bytesPerRow
+
+        var minX = width
+        var minY = height
+        var maxX = -1
+        var maxY = -1
+
+        for y in 0..<height {
+            let rowOffset = y * bytesPerRow
+            for x in 0..<width {
+                let alpha = bytes[rowOffset + (x * 4) + 3]
+                guard alpha > 0 else { continue }
+
+                minX = min(minX, x)
+                minY = min(minY, y)
+                maxX = max(maxX, x)
+                maxY = max(maxY, y)
+            }
+        }
+
+        guard maxX >= minX, maxY >= minY else { return nil }
+        return CGRect(
+            x: CGFloat(minX),
+            y: CGFloat(minY),
+            width: CGFloat(maxX - minX + 1),
+            height: CGFloat(maxY - minY + 1)
+        )
+    }
+
+    private static func crop(_ image: CGImage, to bounds: CGRect) -> CGImage? {
+        let cropX = max(0, Int(bounds.minX))
+        let cropY = max(0, Int(bounds.minY))
+        let cropRect = CGRect(
+            x: CGFloat(cropX),
+            y: CGFloat(cropY),
+            width: CGFloat(min(image.width - cropX, Int(bounds.width))),
+            height: CGFloat(min(image.height - cropY, Int(bounds.height)))
+        )
+
+        guard cropRect.width > 0, cropRect.height > 0 else { return nil }
+        return image.cropping(to: cropRect)
+    }
+
+    private static func rasterizeRGBA(_ image: CGImage) -> CGImage? {
+        let w = image.width
+        let h = image.height
+        guard let ctx = CGContext(
+            data: nil, width: w, height: h,
+            bitsPerComponent: 8, bytesPerRow: w * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return nil }
+
+        ctx.draw(image, in: CGRect(x: 0, y: 0, width: w, height: h))
+        return ctx.makeImage()
     }
 
     private static func flipHorizontally(_ image: CGImage) -> CGImage? {
