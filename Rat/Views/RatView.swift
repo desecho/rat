@@ -48,9 +48,10 @@ class RatView: NSView {
             } else {
                 transform = CATransform3DMakeRotation(.pi / 2, 0, 0, 1)
             }
-            // Swap width/height so the rotated sprite isn't squished
+            // Rotate a normal ground-sized sprite inside a tall climbing view.
             self.frame = CGRect(x: 0, y: 0, width: h, height: w)
-            spriteLayer.frame = CGRect(x: 0, y: 0, width: h, height: w)
+            spriteLayer.bounds = CGRect(x: 0, y: 0, width: w, height: h)
+            spriteLayer.position = CGPoint(x: h / 2, y: w / 2)
         } else {
             if ratPet.facingLeft {
                 transform = CATransform3DMakeScale(-1, 1, 1)
