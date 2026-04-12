@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         petWindow = PetWindow()
         petWindow.contentView = ratView
-        petWindow.trackPosition(ratPet.position)
+        petWindow.trackPosition(ratPet.position, contentSize: ratView.frame.size)
 
         animationController = AnimationController()
         ratView.animationController = animationController

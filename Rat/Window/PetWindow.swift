@@ -22,12 +22,10 @@ class PetWindow: NSWindow {
     override var canBecomeKey: Bool { true }
 
     /// Move window so the sprite's bottom-center is at the given screen point
-    func trackPosition(_ point: CGPoint, isClimbing: Bool = false) {
-        let frameW = isClimbing ? PetConfig.renderHeight : PetConfig.renderWidth
-        let frameH = isClimbing ? PetConfig.renderWidth : PetConfig.renderHeight
-        setContentSize(NSSize(width: frameW, height: frameH))
+    func trackPosition(_ point: CGPoint, contentSize: CGSize) {
+        setContentSize(NSSize(width: contentSize.width, height: contentSize.height))
         let origin = CGPoint(
-            x: point.x - frameW / 2,
+            x: point.x - contentSize.width / 2,
             y: point.y
         )
         setFrameOrigin(origin)
