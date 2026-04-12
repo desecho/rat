@@ -9,6 +9,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var mouseTracker: MouseTracker!
     private var statusBarController: StatusBarController!
     private var animationController: AnimationController!
+    private var fullscreenAppMonitor: FullscreenAppMonitor!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         guard let screen = NSScreen.main else { return }
@@ -45,6 +46,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
 
         statusBarController = StatusBarController(ratPet: ratPet, stateMachine: stateMachine, screenBounds: screenBounds)
+        fullscreenAppMonitor = FullscreenAppMonitor(ownProcessIdentifier: ProcessInfo.processInfo.processIdentifier) { [weak self] shouldShowRat in
+            if shouldShowRat {
+                self?.petWindow.orderFrontRegardless()
+            } else {
+                self?.petWindow.orderOut(nil)
+            }
+        }
 
         ratView.onMouseDown = { [weak self] event in
             self?.stateMachine.forceTransition(to: .dragged)
@@ -69,10 +77,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         animationSystem.start()
         mouseTracker.start()
+        fullscreenAppMonitor.start()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         animationSystem?.stop()
         mouseTracker?.stop()
+        fullscreenAppMonitor?.stop()
     }
 }
